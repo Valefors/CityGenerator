@@ -357,7 +357,7 @@ MonoBehaviour:
   _end: {fileID: 1102477831}
   _startPoint: {x: 0, y: 0, z: 0}
   _endPoint: {x: 0, y: 0, z: 0}
-  ROAD_SIZE: 5
+  ROAD_INTIAL_SIZE: 10
   _roadInstance: {fileID: 843878896237159126, guid: 1b6c0cd153361bc4ab3c20ea37730f2a,
     type: 3}
 --- !u!4 &944275171
