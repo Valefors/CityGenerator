@@ -10,7 +10,8 @@ public class Road : MonoBehaviour
     [SerializeField] Vector3 _startPoint;
     [SerializeField] Vector3 _endPoint;
 
-    [SerializeField] float ROAD_SIZE = 5;
+    [SerializeField] float ROAD_INTIAL_SIZE = 10;
+    float ROAD_INTIAL_WIDTH = 1;
 
     List<RoadSegment> _roadsArray = new List<RoadSegment>();
     [SerializeField] GameObject _roadInstance;
@@ -22,20 +23,23 @@ public class Road : MonoBehaviour
         _startPoint = _start.position;
         _endPoint = _end.position;
     }
+
     void CreateRoad()
     {
         GameObject lRoad = Instantiate(_roadInstance);
-        lRoad.GetComponent<RoadSegment>().DrawRoad(_startPoint, _endPoint);
+        ROAD_INTIAL_SIZE /= 2;
+        lRoad.GetComponent<RoadSegment>().DrawRoad(_startPoint, _endPoint, ROAD_INTIAL_SIZE, ROAD_INTIAL_WIDTH);
 
         _startPoint = lRoad.GetComponent<RoadSegment>().intersectionPoint;
         _endPoint = lRoad.GetComponent<RoadSegment>().newPoint;
 
-        _roadsArray.Add(lRoad.GetComponent<RoadSegment>());
+        ROAD_INTIAL_WIDTH /= 2;
+        //_roadsArray.Add(lRoad.GetComponent<RoadSegment>());
     }
 
     private void OnGUI()
     {
-        if(GUI.Button(new Rect(10,70,200,40), "Draw Road"))
+        if(GUI.Button(new Rect(10,70,400,100), "DRAW  ROAD"))
         {
             if (_roadsArray.Count != 0) ResetRoads();
 

@@ -5,26 +5,28 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class RoadSegment : MonoBehaviour
 {
-    public Vector3 startPoint;
-    public Vector3 endPoint;
+    Vector3 startPoint;
+    Vector3 endPoint;
     public Vector3 intersectionPoint;
     public Vector3 newPoint;
-    public float roadLenght = 5;
+    float roadLenght;
     Vector3 roadVector;
 
     LineRenderer lr;
 
-    public void DrawRoad(Vector3 pStartPoint, Vector3 pEndPoint)
+    public void DrawRoad(Vector3 pStartPoint, Vector3 pEndPoint, float pLenght, float pWidth)
     {
         lr = GetComponent<LineRenderer>();
 
         startPoint = pStartPoint;
         endPoint = pEndPoint;
+        roadLenght = pLenght;
 
         roadVector = endPoint - startPoint;
 
         lr.SetPosition(0, startPoint);
         lr.SetPosition(1, endPoint);
+        lr.SetWidth(pWidth, pWidth);
 
         intersectionPoint = GetCenterRoad(roadVector);
         newPoint = GetNewPoint();
@@ -35,7 +37,7 @@ public class RoadSegment : MonoBehaviour
         Vector3 lOrthogonalVector = GetOrthogonalVector(roadVector);
         int lRandomDirection = GetRandomDirection();
 
-        Vector3 lNewPoint = intersectionPoint + (lOrthogonalVector * 5 * lRandomDirection);
+        Vector3 lNewPoint = intersectionPoint + (lOrthogonalVector * roadLenght * lRandomDirection);
 
         return lNewPoint;
     }
@@ -45,7 +47,7 @@ public class RoadSegment : MonoBehaviour
         Vector3 lCenterPoint = (startPoint + endPoint) / 2;
         int lRandomDirection = GetRandomDirection();
 
-        lCenterPoint += pRoadVector.normalized * 0.2f * lRandomDirection;
+        lCenterPoint += pRoadVector.normalized * 0.4f * lRandomDirection;
 
         return lCenterPoint;
     }
